@@ -1,0 +1,6 @@
+{
+  "name": "Gradient Glow UI & Showcase",
+  "description": "An interactive showcase and integration workspace for Aurora Dream & Peachy Mint gradient background components with Tailwind CSS and shadcn structure.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

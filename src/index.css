@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@fontsource/clarity-city/100.css";
+@import "@fontsource/clarity-city/200.css";
+@import "@fontsource/clarity-city/300.css";
+@import "@fontsource/clarity-city/400.css";
+@import "@fontsource/clarity-city/500.css";
+@import "@fontsource/clarity-city/600.css";
+@import "@fontsource/clarity-city/700.css";
+
+@layer base {
+  :root {
+    font-family: "Clarity City", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body {
+    font-family: "Clarity City", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
