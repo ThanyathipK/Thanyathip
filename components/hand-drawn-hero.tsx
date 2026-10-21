@@ -1,155 +1,136 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export interface HandDrawnHeroProps {
   onClick?: () => void;
   className?: string;
   animationDurationSec?: number;
-  postAnimationWaitSec?: number;
 }
 
 export function HandDrawnHero({
   onClick,
   className,
-  animationDurationSec = 6.0,
-  postAnimationWaitSec = 5.0,
+  animationDurationSec = 3.2,
 }: HandDrawnHeroProps) {
+  const hasFinished = useRef(false);
+  const transitionTimer = useRef<number | undefined>(undefined);
   const [isExiting, setIsExiting] = useState(false);
 
-  // Handle immediate navigation on user click anywhere
-  const handleClick = () => {
-    if (isExiting) return;
+  const finishIntro = useCallback(() => {
+    if (hasFinished.current) return;
+    hasFinished.current = true;
     setIsExiting(true);
-    // Immediate smooth transition to home page
-    onClick?.();
-  };
+    transitionTimer.current = window.setTimeout(() => onClick?.(), 480);
+  }, [onClick]);
+
+  useEffect(() => () => window.clearTimeout(transitionTimer.current), []);
 
   useEffect(() => {
-    // Slower clover animation + 5 seconds wait after animation finishes
-    const totalWaitMs = (animationDurationSec + postAnimationWaitSec) * 1000;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setTimeout(finishIntro, 250);
+    return () => window.clearTimeout(timer);
+  }, [finishIntro]);
 
-    const timer = setTimeout(() => {
-      setIsExiting(true);
-      onClick?.();
-    }, totalWaitMs);
-
-    return () => clearTimeout(timer);
-  }, [animationDurationSec, postAnimationWaitSec, onClick]);
-
-  // ONE CONTINUOUS UNBROKEN LINE (Stem + all 4 Heart Leaves seamlessly connected)
-  // Drawn in one continuous pen stroke: Stem -> Bottom-Left Leaf -> Top-Left Leaf -> Top-Right Leaf -> Bottom-Right Leaf -> Center
-  const singleConnectedCloverLine = `
-    M 260 670 
-    C 360 560, 390 430, 393 333 
-    C 395 394, 401 472, 370 513 
-    C 335 547, 283 530, 269 494 
-    C 264 474, 278 446, 289 428 
-    C 270 437, 241 451, 222 445 
-    C 186 429, 171 378, 207 343 
-    C 248 314, 326 322, 387 327 
-    C 390 328, 386 318, 388 312 
-    C 326 313, 248 316, 209 284 
-    C 175 247, 194 196, 231 183 
-    C 251 178, 278 194, 296 205 
-    C 287 186, 275 157, 281 137 
-    C 298 102, 351 89, 384 126 
-    C 411 168, 400 246, 394 307 
-    C 398 307, 402 307, 406 307 
-    C 400 246, 389 168, 416 126 
-    C 449 89, 502 102, 519 137 
-    C 525 157, 513 186, 504 205 
-    C 522 194, 549 178, 569 183 
-    C 606 196, 625 247, 591 284 
-    C 552 316, 474 313, 412 312 
-    C 413 318, 413 322, 413 327 
-    C 474 322, 552 314, 593 343 
-    C 629 378, 614 429, 578 445 
-    C 559 451, 530 437, 511 428 
-    C 522 446, 536 474, 531 494 
-    C 517 530, 465 547, 430 513 
-    C 399 472, 405 394, 407 333 
-    C 405 334, 400 336, 398 338
+  // One uninterrupted pencil stroke: stem and four heart-shaped leaves meeting
+  // at one natural point in the centre.
+  const cloverLine = `
+    M 337 650
+    C 345 558, 375 430, 400 340
+    C 350 315, 320 285, 325 245
+    C 330 210, 370 200, 400 230
+    C 430 200, 470 210, 475 245
+    C 480 285, 450 315, 400 340
+    C 425 290, 455 260, 495 265
+    C 530 270, 540 310, 510 340
+    C 540 370, 530 410, 495 415
+    C 455 420, 425 390, 400 340
+    C 450 365, 480 395, 475 435
+    C 470 470, 430 480, 400 450
+    C 370 480, 330 470, 325 435
+    C 320 395, 350 365, 400 340
+    C 375 390, 345 420, 305 415
+    C 270 410, 260 370, 290 340
+    C 260 310, 270 270, 305 265
+    C 345 260, 375 290, 400 340
   `;
 
-  const strokeColor = "#000000";
-  const strokeWidth = "3.8";
-
   return (
-    <div
-      onClick={handleClick}
+    <main
+      onClick={finishIntro}
       className={cn(
-        "relative w-full min-h-screen flex items-center justify-center cursor-pointer select-none overflow-hidden transition-opacity duration-300",
-        isExiting ? "opacity-0" : "opacity-100",
+        "flex min-h-screen w-full cursor-pointer select-none items-center justify-center overflow-hidden transition-[opacity,transform,filter] duration-500 ease-out",
+        isExiting ? "scale-[0.97] opacity-0 blur-[2px]" : "scale-100 opacity-100 blur-0",
         className
       )}
-      title="Click anywhere to skip directly to home page"
+      title="Click anywhere to skip the intro"
+      aria-label="Animated black-line clover intro. Click to continue."
     >
-      {/* Pristine Clover Canvas - No blur elements, no text labels */}
-      <div className="relative z-10 flex items-center justify-center p-4 sm:p-6 w-full max-w-4xl">
-        <div className="relative w-full max-w-[740px] h-[540px] sm:h-[620px] md:h-[680px] flex items-center justify-center">
-          
-          {/* Animated SVG - Single Continuous Slower Line Drawing */}
-          <svg
-            className="w-full h-full pointer-events-none overflow-visible"
-            viewBox="0 0 800 740"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Subtle light ambient contact shadow beneath line */}
-            <path
-              d={singleConnectedCloverLine}
-              stroke="rgba(0, 0, 0, 0.03)"
-              strokeWidth="7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      <svg
+        className="h-auto w-[min(58vw,310px)] overflow-visible"
+        viewBox="190 105 440 590"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="A four-leaf clover drawn with one black line"
+      >
+        <defs>
+          <filter id="pencilTexture" x="-8%" y="-8%" width="116%" height="116%">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.035 0.55"
+              numOctaves="2"
+              seed="8"
+              result="paperGrain"
             />
-
-            {/* The 1 Single Connected Line Drawing Path - Slower & Graceful */}
-            <path
-              d={singleConnectedCloverLine}
-              stroke={strokeColor}
-              strokeWidth={strokeWidth}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="single-line-clover"
-              style={{
-                strokeDasharray: 5200,
-                strokeDashoffset: 0,
-                animation: `drawSingleLineClover ${animationDurationSec}s cubic-bezier(0.4, 0, 0.2, 1) forwards`,
-              }}
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="paperGrain"
+              scale="1.15"
+              xChannelSelector="R"
+              yChannelSelector="G"
             />
-          </svg>
-        </div>
-      </div>
+          </filter>
+        </defs>
+        <path
+          className="black-line-clover"
+          d={cloverLine}
+          pathLength="1"
+          stroke="#171513"
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#pencilTexture)"
+          style={{ animationDuration: `${animationDurationSec}s` }}
+          onAnimationEnd={(event) => {
+            if (event.animationName === "drawBlackLine") finishIntro();
+          }}
+        />
+      </svg>
 
-      {/* Slower, graceful 1-line continuous CSS line drawing keyframes */}
       <style>{`
-        @keyframes drawSingleLineClover {
-          0% {
-            stroke-dashoffset: 5200;
-            opacity: 0.1;
-          }
-          15% {
-            opacity: 1;
-          }
-          100% {
-            stroke-dashoffset: 0;
-            opacity: 1;
-          }
+        .black-line-clover {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          vector-effect: non-scaling-stroke;
+          animation-name: drawBlackLine;
+          animation-timing-function: cubic-bezier(.45, .05, .2, 1);
+          animation-fill-mode: forwards;
+          will-change: stroke-dashoffset;
         }
 
-        .single-line-clover {
-          filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+        @keyframes drawBlackLine {
+          0% { stroke-dashoffset: 1; }
+          100% { stroke-dashoffset: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .single-line-clover {
-            animation: none !important;
-            stroke-dashoffset: 0 !important;
+          .black-line-clover {
+            animation: none;
+            stroke-dashoffset: 0;
           }
         }
       `}</style>
-    </div>
+    </main>
   );
 }
 

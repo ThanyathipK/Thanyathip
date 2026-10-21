@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ArrowUpRight, Sparkles, Check, Mail, ExternalLink, Github, ChevronLeft, ChevronRight, X } from "lucide-react";
+import React, { useRef, useState } from "react";
+import { ExternalLink, Github, Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface PortfolioTopic {
@@ -9,9 +9,14 @@ export interface PortfolioTopic {
   category: string;
   image: string;
   description: string;
+  contribution?: string;
   details?: {
     tags: string[];
     features: string[];
+    sections?: Array<{
+      title: string;
+      items: string[];
+    }>;
     link?: string;
     github?: string;
   };
@@ -23,106 +28,147 @@ export const PORTFOLIO_TOPICS: PortfolioTopic[] = [
     id: "profile",
     number: "01",
     title: "Profile",
-    category: "About · Skills · Resume",
+    category: "Product · Data · Technology",
     image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=85",
-    description: "Frontend Engineer & UI/UX Specialist crafting high-performance, accessible digital experiences with modern design systems and intuitive user interfaces.",
+    description: "Fourth-year Information and Communication Technology student at Mahidol University with hands-on experience across the product and data lifecycle. I combine requirements gathering and PRD development with data modelling, analytics, and technical implementation to turn business needs into clear, practical solutions.",
     details: {
-      tags: ["React 19", "TypeScript", "Tailwind CSS v4", "Next.js", "Design Systems"],
+      tags: ["Product Development", "PRD", "SQL", "Python", "Java", "JavaScript", "Power BI", "Tableau", "Figma"],
       features: [
-        "Specializing in modern interactive web development & state management",
-        "Deep focus on micro-interactions, responsive ergonomics & web performance",
-        "Available for Full-time, Contract, and Remote engineering roles",
+        "Requirements gathering, stakeholder communication, PRD creation, and process analysis",
+        "Relational database design, data warehousing, data mining, and business intelligence",
+        "Web, mobile, and data-focused development using JavaScript, Java, Python, and SQL",
       ],
-      github: "https://github.com",
+      sections: [
+        {
+          title: "Education",
+          items: [
+            "B.Sc. in Information and Communication Technology, International Program — Mahidol University (2023–Present), cumulative GPA 3.88",
+            "Science–Math Program, English Program — Yothinburana School (2018–2023)",
+          ],
+        },
+        {
+          title: "Experience & Leadership",
+          items: [
+            "Technical Product Owner Intern — Krungsri Nimble (Jun 2026–Present): supporting AI-assisted PRD development, requirements analysis, documentation, and product quality",
+            "Vice President — MUICT AI Club (Oct 2025–Present): planning AI workshops and coordinating club operations and external partnerships",
+            "Lab Assistant / Teaching Assistant (Jul 2024–Present): helping students with programming, web and mobile development, problem solving, and technical communication",
+            "AI Development Intern — National Central University, Taiwan (Jun–Jul 2025): developed AI image and icon generation features and personalization experiences",
+            "ICT Talent and Activism Scholarship recipient (Aug 2023–Present)",
+          ],
+        },
+      ],
+      github: "https://github.com/ThanyathipK",
     },
   },
   {
     id: "project-1",
     number: "02",
-    title: "Project 1",
-    category: "Atmospheric UI · Design System",
+    title: "SmartExpense",
+    category: "Flutter · Personal Finance",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
-    description: "An open-source library of luminous gradient backdrops, glassmorphic cards, and accessible React primitives with zero layout shift.",
+    description: "SmartExpense is an offline-first personal finance app built with Flutter. It helps users manage income and expenses, understand account balances, follow monthly budgets, and organize recurring payments—all without depending on a remote backend.",
+    contribution: "I designed and developed the Flutter application around an offline-first SQLite data model, creating the transaction, account, budget, recurring-payment, and reporting workflows as one connected personal-finance experience.",
     details: {
-      tags: ["React 19", "Tailwind CSS", "Vite", "Motion"],
+      tags: ["Flutter", "Dart", "SQLite", "sqflite", "FL Chart"],
       features: [
-        "100% mathematical pure CSS gradients without heavy raster assets",
-        "W3C WCAG AA contrast compliance with adaptive dark/light tokens",
-        "Plug-and-play shadcn/ui directory structure integration",
+        "Unified dashboard with total balances and recent monthly activity",
+        "Fast income and expense entry with categories, accounts, and a custom numpad",
+        "Monthly category budgets with clear, color-coded progress tracking",
+        "Daily, weekly, monthly, and yearly spending reports powered by FL Chart",
+        "Local SQLite storage for a fast and fully offline experience",
       ],
-      link: "#",
-      github: "https://github.com",
+      github: "https://github.com/ThanyathipK/SmartExpense",
     },
   },
   {
     id: "project-2",
     number: "03",
-    title: "Project 2",
-    category: "Fintech · Portfolio App",
+    title: "Agentic AI for PRD",
+    category: "Multi-Agent AI · Requirements Engineering",
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85",
-    description: "Interactive real-time financial dashboard featuring interactive asset tracking, responsive charts, and instant transaction simulation.",
+    description: "An enterprise requirements engineering platform that transforms plain-language banking product ideas and uploaded briefs into audited, versioned, engineering-ready requirements, PRDs, and system diagrams using a coordinated team of specialist AI agents.",
+    contribution: "I developed the product as a full-stack requirements workspace, connecting the React interface to FastAPI services, LangGraph agents, local LM Studio inference, versioned persistence, review controls, and traceability workflows.",
     details: {
-      tags: ["TypeScript", "Next.js", "Chart.js", "Tailwind"],
+      tags: ["React 19", "FastAPI", "LangGraph", "LM Studio", "PostgreSQL"],
       features: [
-        "Real-time market tickers and live portfolio allocation breakdowns",
-        "Optimistic UI updates with resilient local caching",
-        "Sub-second page navigation and accessible keyboard shortcuts",
+        "Multi-agent workflow with Router, Matcher, Gatherer, Auditor, and Architect roles",
+        "Local-first AI inference through LM Studio without a cloud LLM API key",
+        "Human-in-the-loop confirmation before requirement changes are committed",
+        "Versioned PRDs, banking compliance audits, and interactive system diagrams",
+        "End-to-end traceability connecting requirements, user stories, acceptance criteria, PRD sections, and diagrams",
       ],
-      link: "#",
-      github: "https://github.com",
+      github: "https://github.com/ThanyathipK/AgenticAI-for-PRD.git",
     },
   },
   {
     id: "project-3",
     number: "04",
-    title: "Project 3",
-    category: "Creative · E-Commerce Platform",
+    title: "Filmo",
+    category: "Flutter · AI Image Personalization",
     image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=85",
-    description: "Editorial concept store with fluid layout animations, multi-currency cart flows, and immersive editorial typography.",
+    description: "Filmo is a Flutter mobile app for turning personal photos into expressive visual designs. Users can personalize an image with their own icons, add stylized text, or generate an AI icon from a prompt, with optional tone matching for a cohesive final result.",
+    contribution: "I contributed to the AI-based image and icon generation features, including personalized creation flows that combine uploaded images, prompts, tone references, and generated visual elements.",
     details: {
-      tags: ["React", "Tailwind CSS", "Stripe API", "Zustand"],
+      tags: ["Flutter", "Dart", "Firebase", "FastAPI", "Flask", "OpenCV"],
       features: [
-        "Interactive product showcase with 3D hover effects",
-        "Seamless checkout experience with local currency conversion",
-        "Server-rendered static catalog with dynamic client-side filtering",
+        "Three creative workflows for custom icons, styled text, and prompt-generated AI icons",
+        "Image and optional reference-tone uploads directly from the mobile gallery",
+        "Color-transfer processing that adapts an image to a preferred visual palette",
+        "Python image APIs for icon composition, text placement, filters, and final rendering",
+        "Firebase authentication, cloud storage, and Firestore-backed creation history",
       ],
-      link: "#",
-      github: "https://github.com",
+      link: "https://canva.link/nrpxu9f827lmvfv",
+      github: "https://github.com/kunruethaipat/filmo_app.git",
     },
   },
   {
     id: "project-4",
     number: "05",
-    title: "Project 4",
-    category: "SaaS · Analytics Workspace",
+    title: "Leafly",
+    category: "Full-Stack Web · Online Shopping",
     image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=85",
-    description: "Cloud telemetry and workspace platform providing team metrics, task pipelines, and collaborative real-time notifications.",
+    description: "Leafly is a full-stack online shopping website for browsing and managing a curated phone-case catalogue. It combines a customer-facing storefront with a secure administrative workflow for maintaining product information, inventory, pricing, and images.",
+    contribution: "I collaborated in a five-person development team to deliver the customer and administrator workflows, integrating browser interfaces, Express services, and relational product data into a complete shopping application.",
     details: {
-      tags: ["TypeScript", "React 19", "WebSockets", "Node.js"],
+      tags: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "MySQL"],
       features: [
-        "Real-time event feed with custom filter rules and search",
-        "Modular dashboard cards with drag-and-drop customization",
-        "Role-based permission views and audit logging",
+        "Customer storefront featuring best-selling products and detailed product pages",
+        "Advanced catalogue search with keyword and product-attribute filtering",
+        "Session-protected administrator login with a three-hour expiry policy",
+        "Complete product management for adding, editing, deleting, pricing, stock, and images",
+        "Separated frontend and backend Express services connected to a relational MySQL database",
       ],
-      link: "#",
-      github: "https://github.com",
+      github: "https://github.com/Tanyarat2/leafly.git",
     },
   },
   {
     id: "experience",
     number: "06",
     title: "Experience",
-    category: "Work Journey · Timeline",
+    category: "Experience · Leadership · Internships",
     image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=85",
-    description: "Track record of shipping production-grade web applications, collaborating with design teams, and architecting scalable UI codebases.",
+    description: "My experience connects technical product work, AI development, teaching, and student leadership. Across these roles I have translated requirements into deliverables, supported technical teams, communicated with stakeholders, and built user-facing features.",
     details: {
-      tags: ["Frontend Engineer", "UI Specialist", "Open Source", "2022 - Present"],
+      tags: ["Product Ownership", "Requirements", "AI Development", "Teaching", "Leadership"],
       features: [
-        "Lead frontend development on client-facing SaaS products and portfolios",
-        "Architected reusable design system components adopted across 12+ projects",
-        "Mentored junior developers and conducted thorough TypeScript code reviews",
+        "Technical Product Owner Intern — Krungsri Nimble (Jun 2026–Present)",
+        "Vice President — MUICT AI Club (Oct 2025–Present)",
+        "Lab Assistant / Teaching Assistant — Mahidol University (Jul 2024–Present)",
+        "AI Development Intern — National Central University, Taiwan (Jun–Jul 2025)",
+        "Head of Public Relations — Freshman Welcome Activity (May–Jul 2024)",
       ],
-      github: "https://github.com",
+      sections: [
+        {
+          title: "Selected Responsibilities",
+          items: [
+            "Developing an AI agent to support PRD generation through requirements gathering, analysis, documentation, and product-quality review at Krungsri Nimble",
+            "Planning AI workshops and coordinating club operations, external partners, venues, and communications as MUICT AI Club Vice President",
+            "Supporting students in programming, web and mobile development, problem solving, and English technical communication as a teaching assistant",
+            "Building AI-based image and icon generation features and personalized creative experiences during an internship in Taiwan",
+            "Coordinating vendors, sponsors, audiovisual teams, promotional content, and on-site activities across university events",
+          ],
+        },
+      ],
     },
   },
 ];
@@ -137,8 +183,8 @@ export function RadialPortfolioWheel({ onSelectTopic, className }: RadialPortfol
   const [activeIdx, setActiveIdx] = useState(0);
   // Continuous wheel rotation angle so the chosen topic rounds to top center
   const [wheelRotation, setWheelRotation] = useState(0);
-  const [modalTopic, setModalTopic] = useState<PortfolioTopic | null>(null);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<PortfolioTopic>(PORTFOLIO_TOPICS[0]);
+  const detailsRef = useRef<HTMLElement>(null);
 
   const count = PORTFOLIO_TOPICS.length;
   const activeTopic = PORTFOLIO_TOPICS[activeIdx];
@@ -154,6 +200,7 @@ export function RadialPortfolioWheel({ onSelectTopic, className }: RadialPortfol
 
   // Smoothly rounds the clicked project to the top center (12 o'clock)
   const roundToProject = (targetIdx: number) => {
+    setSelectedTopic(PORTFOLIO_TOPICS[targetIdx]);
     if (targetIdx === activeIdx) return;
     setActiveIdx(targetIdx);
 
@@ -227,25 +274,16 @@ export function RadialPortfolioWheel({ onSelectTopic, className }: RadialPortfol
   };
 
   const handleOpenDetail = (topic: PortfolioTopic) => {
-    setModalTopic(topic);
+    setSelectedTopic(topic);
     onSelectTopic?.(topic);
-  };
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText("thanyathip2005@gmail.com");
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+    window.setTimeout(() => {
+      detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
   return (
     <div className={cn("relative flex flex-col items-center justify-center w-full select-none", className)}>
       
-      {/* Top Center Alignment Indicator Tick with Frosted Glow */}
-      <div className="flex flex-col items-center mb-1">
-        <div className="w-1.5 h-1.5 rounded-full bg-[#C0EEE4] shadow-[0_0_12px_#C0EEE4]" />
-        <div className="w-0.5 h-3 bg-slate-800/80 rounded-full mt-0.5" />
-      </div>
-
       {/* Main Wheel Container */}
       <div className="relative w-full max-w-[700px] flex items-center justify-center">
         
@@ -424,162 +462,115 @@ export function RadialPortfolioWheel({ onSelectTopic, className }: RadialPortfol
             {/* Liquid Specular Reflection Arc */}
             <div className="absolute inset-0 rounded-full bg-linear-to-b from-white/45 via-white/10 to-transparent pointer-events-none" />
 
-            {/* Active Counter Indicator Pill */}
-            <div className="relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-xl bg-white/60 border border-white/80 shadow-[inset_0_1px_1px_#fff,0_2px_6px_rgba(0,0,0,0.03)] text-xs text-slate-600 font-medium tracking-widest mb-1.5 font-mono">
-              <span className="w-2 h-2 rounded-full bg-[#C0EEE4] shadow-[0_0_10px_#C0EEE4] animate-pulse" />
-              <span className="text-teal-800 font-semibold">{activeTopic.number}</span>
-              <span className="text-slate-300">/</span>
-              <span>0{count}</span>
-            </div>
-
             {/* Active Topic Title in Bold Clarity City font */}
             <h2
-              className="relative z-10 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950 leading-tight mb-1"
+              className="relative z-10 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950 leading-tight"
               style={{ fontFamily: '"Clarity City", sans-serif' }}
             >
               {activeTopic.title}
             </h2>
-
-            {/* Subtitle / Category */}
-            <p
-              className="relative z-10 text-[11px] sm:text-xs text-slate-600 font-medium max-w-[190px] truncate"
-              style={{ fontFamily: '"Clarity City", sans-serif' }}
-            >
-              {activeTopic.category}
-            </p>
-
-            {/* Diagonal Arrow Icon ↗ to Open Detail (Frosted Glass Button) */}
-            <div className="relative z-10 mt-3 w-9 h-9 rounded-full backdrop-blur-xl bg-white/70 group-hover:bg-slate-950 text-slate-800 group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-[inset_0_1px_1.5px_#fff,0_4px_12px_rgba(0,0,0,0.05)] border border-white/90 group-hover:border-[#C0EEE4] group-hover:shadow-[0_0_20px_rgba(192,238,228,0.8)]">
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Ultra-Glassy Topic Detail Modal */}
-      {modalTopic && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/30 backdrop-blur-md animate-fadeIn">
-          <div className="relative w-full max-w-xl rounded-3xl backdrop-blur-3xl bg-white/75 border border-white/90 shadow-[inset_0_2px_4px_rgba(255,255,255,0.95),0_30px_70px_rgba(0,0,0,0.12)] overflow-hidden text-slate-900 transition-all">
-            {/* Modal Image Header Banner */}
-            <div className="relative h-56 w-full overflow-hidden bg-slate-900">
-              <img
-                src={modalTopic.image}
-                alt={modalTopic.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/25 to-transparent" />
-              
-              {/* Close Button (Glassy Circle) */}
-              <button
-                onClick={() => setModalTopic(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full backdrop-blur-xl bg-white/60 hover:bg-white text-slate-900 border border-white/80 flex items-center justify-center transition-colors shadow-sm cursor-pointer hover:border-[#C0EEE4] hover:shadow-[0_0_15px_rgba(192,238,228,0.7)]"
-              >
-                <X className="w-4 h-4" />
-              </button>
+      {selectedTopic && (
+        <section
+          ref={detailsRef}
+          className="w-full max-w-4xl scroll-mt-24 px-5 py-16 sm:px-8 sm:py-20 text-slate-800 animate-fadeIn"
+          aria-labelledby="project-details-title"
+        >
+          <div className="mb-8 h-px w-full bg-slate-300/60" />
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-teal-700">
+            {selectedTopic.category}
+          </p>
+          <h3
+            id="project-details-title"
+            className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl"
+            style={{ fontFamily: '"Clarity City", sans-serif' }}
+          >
+            {selectedTopic.title}
+          </h3>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
+            {selectedTopic.description}
+          </p>
 
-              {/* Header Title overlay */}
-              <div className="absolute bottom-4 left-6 right-6">
-                <span className="px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-md bg-teal-600/90 text-white border border-teal-300/40 shadow-xs">
-                  {modalTopic.number} &bull; {modalTopic.category}
-                </span>
-                <h3
-                  className="text-2xl sm:text-3xl font-bold text-white mt-2"
-                  style={{ fontFamily: '"Clarity City", sans-serif' }}
-                >
-                  {modalTopic.title}
-                </h3>
-              </div>
-            </div>
-
-            {/* Modal Body */}
-            <div className="p-6 sm:p-8 space-y-6">
-              <p className="text-sm text-slate-700 leading-relaxed font-normal">
-                {modalTopic.description}
+          {selectedTopic.contribution && (
+            <div className="mt-8 max-w-3xl border-l-2 border-teal-600 pl-5">
+              <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">
+                My contribution
+              </h4>
+              <p className="mt-2 text-sm leading-7 text-slate-700">
+                {selectedTopic.contribution}
               </p>
+            </div>
+          )}
 
-              {/* Glass Tags */}
-              {modalTopic.details?.tags && (
-                <div className="flex flex-wrap gap-2">
-                  {modalTopic.details.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-xl text-xs font-medium backdrop-blur-md bg-white/65 text-slate-800 border border-white/90 shadow-[inset_0_1px_1px_#fff,0_2px_4px_rgba(0,0,0,0.02)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+          {selectedTopic.details?.tags && (
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-slate-700">
+              {selectedTopic.details.tags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
+          )}
+
+          {selectedTopic.details?.features && (
+            <div className="mt-10 grid gap-x-12 gap-y-5 sm:grid-cols-2">
+              {selectedTopic.details.features.map((feature, index) => (
+                <div key={feature} className="flex items-start gap-4 border-t border-slate-300/60 pt-4">
+                  <span className="font-mono text-xs font-bold text-teal-700">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-sm leading-6 text-slate-700">{feature}</p>
                 </div>
-              )}
+              ))}
+            </div>
+          )}
 
-              {/* Key Features / Highlights */}
-              {modalTopic.details?.features && (
-                <div className="space-y-2 pt-2 border-t border-slate-200/60">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Highlights &amp; Focus
-                  </h4>
-                  <ul className="space-y-2 text-xs text-slate-700">
-                    {modalTopic.details.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-teal-600 mt-1.5 shrink-0 shadow-[0_0_6px_#C0EEE4]" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Modal Actions */}
-              <div className="pt-4 border-t border-slate-200/60 flex flex-wrap items-center justify-between gap-3">
-                {modalTopic.id === "profile" ? (
-                  <>
-                    <button
-                      onClick={handleCopyEmail}
-                      className="px-4 py-2 rounded-xl backdrop-blur-xl bg-white/70 hover:bg-white text-slate-900 font-medium text-xs border border-white/90 shadow-[inset_0_1px_1px_#fff,0_2px_6px_rgba(0,0,0,0.04)] hover:border-[#C0EEE4] transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      {copiedEmail ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Copied Email!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Mail className="w-3.5 h-3.5 text-slate-600" />
-                          <span>Copy Email Address</span>
-                        </>
-                      )}
-                    </button>
-                    <a
-                      href="mailto:thanyathip2005@gmail.com?subject=Job%20Opportunity"
-                      className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-medium text-xs shadow-xs transition-colors flex items-center gap-1.5 hover:shadow-[0_0_18px_rgba(192,238,228,0.7)]"
-                    >
-                      <span>Send Message</span>
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    {modalTopic.details?.github && (
-                      <a
-                        href={modalTopic.details.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-4 py-2 rounded-xl backdrop-blur-xl bg-white/70 hover:bg-white text-slate-800 text-xs font-medium border border-white/90 shadow-[inset_0_1px_1px_#fff,0_2px_6px_rgba(0,0,0,0.04)] transition-all flex items-center gap-1.5 hover:border-[#C0EEE4]"
-                      >
-                        <Github className="w-3.5 h-3.5" />
-                        <span>View Source Code</span>
-                      </a>
-                    )}
-                    <button
-                      onClick={() => setModalTopic(null)}
-                      className="px-5 py-2 rounded-xl bg-slate-950 text-white text-xs font-medium hover:bg-slate-800 transition-colors ml-auto cursor-pointer"
-                    >
-                      Done
-                    </button>
-                  </>
-                )}
+          {selectedTopic.details?.sections?.map((section) => (
+            <div key={section.title} className="mt-12">
+              <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
+                {section.title}
+              </h4>
+              <div className="space-y-0 border-t border-slate-300/60">
+                {section.items.map((item) => (
+                  <p key={item} className="border-b border-slate-300/60 py-4 text-sm leading-7 text-slate-700">
+                    {item}
+                  </p>
+                ))}
               </div>
             </div>
+          ))}
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            {selectedTopic.details?.link && (
+              <a
+                href={selectedTopic.details.link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-teal-600"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View project presentation
+              </a>
+            )}
+            {selectedTopic.id === "profile" ? (
+              <a
+                href="https://www.linkedin.com/in/thanyathip-korapintavangkul-697979241/?isSelfProfile=true"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-teal-600"
+              >
+                <Linkedin className="h-4 w-4" />
+                View LinkedIn profile
+              </a>
+            ) : selectedTopic.details?.github ? (
+              <a href={selectedTopic.details.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 underline decoration-slate-300 underline-offset-4 hover:decoration-teal-600">
+                <Github className="h-4 w-4" />
+                View source code on GitHub
+              </a>
+            ) : null}
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

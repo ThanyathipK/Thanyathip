@@ -1,6 +1,6 @@
 {
-  "name": "Gradient Glow UI & Showcase",
-  "description": "An interactive showcase and integration workspace for Aurora Dream & Peachy Mint gradient background components with Tailwind CSS and shadcn structure.",
+  "name": "Thanyathip Korapintavangkul Portfolio",
+  "description": "A professional portfolio spanning product development, data analytics, AI, mobile, and full-stack software engineering.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

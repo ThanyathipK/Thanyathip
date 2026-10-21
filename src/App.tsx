@@ -18,8 +18,7 @@ export default function App() {
         />
       ) : (
         <HomePage
-          name="Thanyathip"
-          role="Frontend Engineer & UI Designer"
+          name="Thanyathip Korapintavangkul"
           onBackToIntro={() => setCurrentPage("intro")}
         />
       )}
